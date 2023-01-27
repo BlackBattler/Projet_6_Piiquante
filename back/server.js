@@ -1,6 +1,8 @@
+// Importation de package
 const http = require('http');
 const app = require('./app');
 
+// Renvoie un port valide, qu'il soit sous la forme d'un numero ou d'une chaine
 const normalizePort = val => {
     const port = parseInt(val, 10);
 
@@ -15,6 +17,7 @@ const normalizePort = val => {
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
+// Recherche les differentes erreurs et les gere de maniere appropriee
 const errorHandler = error => {
     if (error.syscall !== 'listen') {
         throw error;
@@ -35,6 +38,7 @@ const errorHandler = error => {
     }
 };
 
+// Methode createServer du package http
 const server = http.createServer(app);
 
 server.on('error', errorHandler);

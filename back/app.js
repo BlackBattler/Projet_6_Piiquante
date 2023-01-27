@@ -1,24 +1,29 @@
+// Importation de package
 const express = require('express');
+const mongoose = require('mongoose');
 
+// Appel de l'application express
 const app = express();
 
+// Connexion a MongoDB
+mongoose.connect('mongodb+srv://Battler:1234@cluster0.9rncfqu.mongodb.net/?retryWrites=true&w=majority',
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => console.log('Connexion à MongoDB réussie !'))
+    .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+// Met en disposition le body directement sur l'objet req (dans req.body)
+app.use(express.json());
+
+// Gestion des erreurs CORS ( Cross Origin Resource Sharing )
 app.use((req, res, next) => {
-    console.log('requete recue');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
 
-app.use((req, res, next) => {
-    res.status(201);
-    next();
-});
-
-app.use((req, res, next) => {
-    res.json({ message: 'votre requete a bien ete recu' });
-    next();
-});
-
-app.use((req, res) => {
-    console.log('reponse recue');
-});
 
 module.exports = app;
