@@ -2,6 +2,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+// Importation des routes
+const userRoutes = require('./routes/user')
+const sauceroutes = require('./routes/sauce');
+
 // Appel de l'application express
 const app = express();
 
@@ -25,5 +29,9 @@ app.use((req, res, next) => {
     next();
 });
 
+// Appel des routes
+app.use('/api/auth', userRoutes);
+app.use('/api/sauces', sauceroutes);
 
+// Exportation
 module.exports = app;
