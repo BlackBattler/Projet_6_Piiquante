@@ -1,6 +1,7 @@
 // Importation de package
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 
 // Importation des routes
 const userRoutes = require('./routes/user')
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 // Appel des routes
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', sauceroutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Exportation
 module.exports = app;
