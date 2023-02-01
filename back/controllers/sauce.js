@@ -47,7 +47,28 @@ exports.createSauce = (req, res, next) => {
 
 // Modification de la sauce
 exports.modifySauce = (req, res, next) => {
+    //
+    const updateSauce = req.file ? {
+        ...JSON.parse(req.body.sauce),
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } : { ...req.body };
 
+    //
+    delete updateSauce._userId;
+
+    // 
+    Sauce.findOne({ _id: req.params.id })
+        .then(sauce => {
+            // Verifie si l'utilisateur est le propriétaire de la sauce cree
+            if (sauce.userId != req.auth.userId) {
+                res.status(401).json({ message: 'Non autorise' })
+            } else {
+                Sauce.updateOne({ _id: req.params.id }, { ...updateSauce, _id: req.params.id })
+                    .then(() => res.status(200).json({ message: 'Sauce modifie' }))
+                    .catch(error => res.status(401).json({ error }));
+            }
+        })
+        .catch(error => res.status(500).json({ error }));
 };
 
 // Suppression de la sauce
@@ -75,4 +96,7 @@ exports.deleteSauce = (req, res, next) => {
 // Gestion des 'likes'
 exports.likeSauce = (req, res, next) => {
 
+    Sauce.findOne({ _id: req.params.id })
+        .then()
+        .catch(error => res.status(500).json({ error }));
 };
