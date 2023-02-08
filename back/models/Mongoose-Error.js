@@ -11,12 +11,4 @@ const errorSchema = mongoose.Schema({
 
 errorSchema.plugin(mongooseErrors);
 
-Model = mongoose.model('AllErrors', errorSchema);
-
-Model
-    .create(test)
-    .catch(error => {
-        console.log(error.statusCode);
-        // print 400 which is http bad request error code
-        done();
-    });
+module.exports = mongoose.model('AllErrors', errorSchema);

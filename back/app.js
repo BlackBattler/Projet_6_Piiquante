@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 // Importation des routes
-const userRoutes = require('./routes/user')
+const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
 
 // Appel de l'application express
