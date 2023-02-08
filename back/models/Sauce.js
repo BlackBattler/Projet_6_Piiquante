@@ -1,5 +1,6 @@
 // Importation de la DB mongoose
 const mongoose = require('mongoose');
+const mongoDBErrorHandler = require('mongoose-mongodb-errors');
 
 // Schema de nos sauces
 const sauceSchema = mongoose.Schema({
@@ -15,6 +16,9 @@ const sauceSchema = mongoose.Schema({
     usersLiked: { type: Array },
     usersDisliked: { type: Array }
 });
+
+sauceSchema.plugin(mongoDBErrorHandler);
+
 
 // Exportation du schema
 module.exports = mongoose.model('Sauce', sauceSchema);
