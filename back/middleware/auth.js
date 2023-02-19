@@ -1,5 +1,8 @@
+require("dotenv").config();
+
 // Importatio de jsonwebtoken
 const jwt = require('jsonwebtoken');
+
 
 module.exports = (req, res, next) => {
     try {
@@ -7,7 +10,7 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(' ')[1];
 
         // Decodage entre le token recuperer et la cle secrete
-        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+        const decodedToken = jwt.verify(token, process.env.token);
 
         // Extraction de l'id utilisateur de notre token et le rajouter a l'objet Request 
         const userId = decodedToken.userId;

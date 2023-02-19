@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+require("dotenv").config();
 
 // Importation des routes
 const userRoutes = require('./routes/user');
@@ -11,7 +12,7 @@ const sauceRoutes = require('./routes/sauce');
 const app = express();
 
 // Connexion a MongoDB
-mongoose.connect('mongodb+srv://Battler:1234@cluster0.9rncfqu.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect(process.env.mongoosePW,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -23,6 +24,7 @@ mongoose.connect('mongodb+srv://Battler:1234@cluster0.9rncfqu.mongodb.net/?retry
 app.use(express.json());
 
 // Gestion des erreurs CORS ( Cross Origin Resource Sharing )
+// middleware permettant a l'application d'acceder a l'API 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');

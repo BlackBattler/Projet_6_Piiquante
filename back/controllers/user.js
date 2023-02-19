@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 // Utilisation de bcrypt pour le cryptage de mot de passe
 const bcrypt = require('bcrypt');
 
@@ -44,7 +46,7 @@ exports.login = (req, res, next) => {
                                 // Fonction sign de jwt (payload, cle secrete de l'encodage, expiration)
                                 token: jwt.sign(
                                     { userId: user._id },
-                                    'RANDOM_TOKEN_SECRET',
+                                    process.env.token,
                                     { expiresIn: '24h' }
                                 )
                             });
